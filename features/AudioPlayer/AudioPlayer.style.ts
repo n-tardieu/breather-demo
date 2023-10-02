@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    backgroundColor: '#F2F2F0',
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: '#555938',
+  player : {
+    position: 'absolute',
+    width: 56,
+    height: 56,
     alignItems: 'center',
-  },
-  start : {
-    
+    justifyContent: 'center',
+    right: 20,
+    top: 40,
+    borderRadius: 28,
   }
 });

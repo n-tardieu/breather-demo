@@ -1,7 +1,10 @@
 import styles from './AudioPlayer.style';
 import { Audio } from 'expo-av';
 import { useEffect, useState } from 'react';
-import { Button, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+
+// Icons
+import { Ionicons } from '@expo/vector-icons';
 
 interface AudioPlayerProps {
     fillDuration: number;
@@ -9,31 +12,35 @@ interface AudioPlayerProps {
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ fillDuration }) => {
 
-    const [sound, setSound] = useState();
+    const [isVolumeOff, setIsVolumeOff] = useState<boolean>(false);
 
     async function playSound() {
-        console.log('Loading Sound');
-        const { sound } = await Audio.Sound.createAsync(require('./assets/Hello.mp3')
-        );
-        setSound(sound);
-
-        console.log('Playing Sound');
-        await sound.playAsync();
+        if (!isVolumeOff) {
+            const { sound } = await Audio.Sound.createAsync(require('../../media/21764.mp3'));
+            console.log('Playing Sound');
+            await sound.playAsync();
+        }
     }
 
     useEffect(() => {
-        return sound
-            ? () => {
-                console.log('Unloading Sound');
-                sound.unloadAsync();
-            }
-            : undefined;
-    }, [sound]);
+        let interval: NodeJS.Timeout;
+        interval = setInterval(() => {
+            playSound();
+        }, fillDuration);
+        return () => clearInterval(interval);
+    }, [isVolumeOff, fillDuration]);
+
+    const toggleSound = () => {
+        setIsVolumeOff(prev => !prev);
+    }
+
 
     return (
-        <View style={styles.container}>
-            <Button title="Play Sound" onPress={playSound} />
-        </View>
+        <TouchableOpacity style={styles.player} onPress={toggleSound}>
+            {isVolumeOff ? <Ionicons name="volume-mute" size={24} color="#555938" /> :
+                <Ionicons name="volume-high" size={24} color="#555938" />
+            }
+        </TouchableOpacity>
     );
 }
 
