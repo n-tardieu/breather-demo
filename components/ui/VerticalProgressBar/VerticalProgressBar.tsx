@@ -19,13 +19,13 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ fillDuration 
                     Animated.timing(progress, {
                         toValue: 1,
                         duration: fillDuration,
-                        //    easing: Easing.inOut(Easing.cubic), 
+                        easing: Easing.inOut(Easing.quad), 
                         useNativeDriver: false
                     }),
                     Animated.timing(progress, {
                         toValue: 0,
                         duration: fillDuration,
-                        easing: Easing.inOut(Easing.cubic),
+                        easing: Easing.inOut(Easing.quad),
                         useNativeDriver: false
                     })
                 ])
@@ -36,8 +36,8 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ fillDuration 
     }, [progress, fillDuration]);
 
     const containerStyle = {
-        height: 400, // Changer la hauteur pour une barre verticale
-        width: 42, // Changer la largeur pour une barre verticale
+        height: 402, // Changer la hauteur pour une barre verticale
+        width: 44, // Changer la largeur pour une barre verticale
     };
 
     const barStyle = {
