@@ -15,27 +15,36 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isEnable, fil
 
 
     useEffect(() => {
+        let animation: any;
+
         const animateProgress = () => {
-            Animated.loop(
-                Animated.sequence([
-                    Animated.timing(progress, {
-                        toValue: 1,
-                        duration: fillDuration,
-                        easing: Easing.inOut(Easing.quad),
-                        useNativeDriver: false
-                    }),
-                    Animated.timing(progress, {
-                        toValue: 0,
-                        duration: fillDuration,
-                        easing: Easing.inOut(Easing.quad),
-                        useNativeDriver: false
-                    })
-                ])
-            ).start()
+            animation = Animated.sequence([
+                Animated.timing(progress, {
+                    toValue: 1,
+                    duration: fillDuration,
+                    easing: Easing.inOut(Easing.quad),
+                    useNativeDriver: false
+                }),
+                Animated.timing(progress, {
+                    toValue: 0,
+                    duration: fillDuration,
+                    easing: Easing.inOut(Easing.quad),
+                    useNativeDriver: false
+                })
+            ])
+            Animated.loop(animation).start()
         };
 
-        animateProgress();
-    }, [progress, fillDuration]);
+        if (isEnable) {
+            animateProgress();
+        } else {
+            animation && animation.stop();
+        }
+
+        return () => {
+            animation && animation.stop();
+        };
+    }, [isEnable, fillDuration, progress]);
 
     const containerStyle = {
         height: 402, // Changer la hauteur pour une barre verticale

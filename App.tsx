@@ -13,7 +13,7 @@ export default function App() {
     <View style={styles.container}>
       <VerticalProgressBar isEnable={isStart} fillDuration={5000}></VerticalProgressBar>
       <AudioPlayer isEnable={isStart} fillDuration={5000}></AudioPlayer>
-      <PlayButton onPress={() => { setIsStart((previous) => !previous) }}></PlayButton>
+      <PlayButton isPlay={isStart} onPress={() => { setIsStart((previous) => !previous) }}></PlayButton>
       <StatusBar style="auto" />
     </View>
   );
