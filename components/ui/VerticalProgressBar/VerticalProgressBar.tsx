@@ -6,11 +6,13 @@ import styles from './VerticalProgressBar.style';
 import { Animated } from 'react-native';
 
 interface VerticalProgressBarProps {
+    isEnable: boolean
     fillDuration: number
 }
 
-const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ fillDuration }) => {
+const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isEnable, fillDuration }) => {
     const [progress] = useState(new Animated.Value(0));
+
 
     useEffect(() => {
         const animateProgress = () => {
@@ -19,7 +21,7 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ fillDuration 
                     Animated.timing(progress, {
                         toValue: 1,
                         duration: fillDuration,
-                        easing: Easing.inOut(Easing.quad), 
+                        easing: Easing.inOut(Easing.quad),
                         useNativeDriver: false
                     }),
                     Animated.timing(progress, {

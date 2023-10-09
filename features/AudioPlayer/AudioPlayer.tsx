@@ -1,16 +1,17 @@
-import styles from './AudioPlayer.style';
 import { Audio } from 'expo-av';
 import { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import styles from './AudioPlayer.style';
 
 // Icons
 import { Ionicons } from '@expo/vector-icons';
 
 interface AudioPlayerProps {
+    isEnable: boolean
     fillDuration: number;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ fillDuration }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ isEnable, fillDuration }) => {
 
     const [isVolumeOff, setIsVolumeOff] = useState<boolean>(false);
 
