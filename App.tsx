@@ -1,11 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import VerticalProgressBar from './components/ui/VerticalProgressBar/VerticalProgressBar';
+import AudioPlayer from './features/AudioPlayer/AudioPlayer';
+import PlayButton from './features/PlayButton/PlayButton';
 
 export default function App() {
+
+  const [isStart, setIsStart] = useState(false)
+
   return (
     <View style={styles.container}>
-      <VerticalProgressBar fillDuration={5000}></VerticalProgressBar>
+      <VerticalProgressBar isEnable={isStart} fillDuration={5000}></VerticalProgressBar>
+      <AudioPlayer isEnable={isStart} fillDuration={5000}></AudioPlayer>
+      <PlayButton onPress={() => { setIsStart((previous) => !previous) }}></PlayButton>
       <StatusBar style="auto" />
     </View>
   );
