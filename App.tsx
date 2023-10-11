@@ -4,6 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import VerticalProgressBar from './components/ui/VerticalProgressBar/VerticalProgressBar';
 import AudioPlayer from './features/AudioPlayer/AudioPlayer';
 import PlayButton from './features/PlayButton/PlayButton';
+import ResetButton from './features/ResetButton/ResetButton';
+import SettingButton from './features/SettingButton/SettingButton';
 
 export default function App() {
 
@@ -18,6 +20,8 @@ export default function App() {
       <VerticalProgressBar isPlaying={isPlaying} fillDuration={5000} />
       <AudioPlayer isPlaying={isPlaying} fillDuration={5000} />
       <PlayButton isPlaying={isPlaying} onPress={togglePlayback} />
+      <ResetButton isPlaying={isPlaying} onPress={togglePlayback}></ResetButton>
+      <SettingButton isPlaying={isPlaying} onPress={() => { }}></SettingButton>
       <StatusBar style="auto" />
     </View>
   );
