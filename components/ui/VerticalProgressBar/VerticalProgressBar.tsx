@@ -1,63 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { Easing, View } from 'react-native';
 import styles from './VerticalProgressBar.style';
-
-
 import { Animated } from 'react-native';
 
 interface VerticalProgressBarProps {
-    isPlaying: boolean
-    fillDuration: number
+    isPlaying: boolean;
+    fillDuration: number;
 }
 
 const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, fillDuration }) => {
     const [progress] = useState(new Animated.Value(0));
+    const [isInspiration, setIsInspiration] = useState<boolean>(true);
 
+    const [pausedProgress, setPausedProgress] = useState(0);
 
     useEffect(() => {
-        let animation: any;
+        if (isPlaying)
+            breathLogic()
+        else
+            pauseAnimation()
+    }, [isPlaying, isInspiration])
 
-        const animateProgress = () => {
-            animation = Animated.sequence([
-                Animated.timing(progress, {
-                    toValue: 1,
-                    duration: fillDuration,
-                    easing: Easing.inOut(Easing.quad),
-                    useNativeDriver: false
-                }),
-                Animated.timing(progress, {
-                    toValue: 0,
-                    duration: fillDuration,
-                    easing: Easing.inOut(Easing.quad),
-                    useNativeDriver: false
-                })
-            ])
-            Animated.loop(animation).start()
-        };
+    const breathLogic = () => {
+        if (isInspiration)
+            Animated.timing(progress, {
+                toValue: 1,
+                duration: (fillDuration),
+                easing: Easing.inOut(Easing.quad),
+                useNativeDriver: false
+            }).start(() => { setIsInspiration(false) })
+        else
+            Animated.timing(progress, {
+                toValue: 0,
+                duration: (fillDuration),
+                easing: Easing.inOut(Easing.quad),
+                useNativeDriver: false
+            }).start(() => { setIsInspiration(true) })
+    }
 
-        if (isPlaying) {
-            animateProgress();
-        } else {
-            animation && animation.stop();
-        }
-
-        return () => {
-            animation && animation.stop();
-        };
-    }, [isPlaying, fillDuration, progress]);
+    const pauseAnimation = () => {
+        progress.stopAnimation(value => {
+            setPausedProgress(value);
+        });
+        console.log("progress ", progress);
+    };
 
     const containerStyle = {
-        height: 402, // Changer la hauteur pour une barre verticale
-        width: 44, // Changer la largeur pour une barre verticale
+        height: 402,
+        width: 44,
     };
 
     const barStyle = {
-        height: 40, // Changer la hauteur pour une barre verticale
-        width: 40, // Changer la largeur pour une barre verticale
+        height: 40,
+        width: 40,
         transform: [{
             translateY: progress.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, 358] // Changer la valeur pour une barre verticale
+                outputRange: [0, 358]
             })
         }]
     };
@@ -68,4 +67,5 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, fi
         </View>
     );
 };
+
 export default VerticalProgressBar;
