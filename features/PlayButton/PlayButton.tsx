@@ -6,16 +6,16 @@ import { Ionicons } from '@expo/vector-icons';
 
 interface PlayButtonProps {
     onPress: () => any;
-    isPlay: boolean
+    isPlaying: boolean
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ onPress, isPlay }) => {
+const PlayButton: React.FC<PlayButtonProps> = ({ onPress, isPlaying }) => {
 
     return (
         <TouchableOpacity style={styles.player} onPress={onPress}>
-            {isPlay ?
-                <Ionicons name="play" size={18} color="white" /> :
-                <Ionicons name="pause" size={18} color="white" />
+            {isPlaying ?
+                <Ionicons name="pause" size={18} color="white" /> :
+                <Ionicons name="play" size={18} color="white" /> 
             }
         </TouchableOpacity>
     );

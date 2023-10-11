@@ -6,11 +6,11 @@ import styles from './VerticalProgressBar.style';
 import { Animated } from 'react-native';
 
 interface VerticalProgressBarProps {
-    isEnable: boolean
+    isPlaying: boolean
     fillDuration: number
 }
 
-const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isEnable, fillDuration }) => {
+const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, fillDuration }) => {
     const [progress] = useState(new Animated.Value(0));
 
 
@@ -35,7 +35,7 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isEnable, fil
             Animated.loop(animation).start()
         };
 
-        if (isEnable) {
+        if (isPlaying) {
             animateProgress();
         } else {
             animation && animation.stop();
@@ -44,7 +44,7 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isEnable, fil
         return () => {
             animation && animation.stop();
         };
-    }, [isEnable, fillDuration, progress]);
+    }, [isPlaying, fillDuration, progress]);
 
     const containerStyle = {
         height: 402, // Changer la hauteur pour une barre verticale

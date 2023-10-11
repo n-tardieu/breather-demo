@@ -7,11 +7,11 @@ import styles from './AudioPlayer.style';
 import { Ionicons } from '@expo/vector-icons';
 
 interface AudioPlayerProps {
-    isEnable: boolean
+    isPlaying: boolean
     fillDuration: number;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ isEnable, fillDuration }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying, fillDuration }) => {
 
     const [isVolumeOff, setIsVolumeOff] = useState<boolean>(false);
     const [currentSong, setCurrentSong] = useState<number>(1);
@@ -32,12 +32,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ isEnable, fillDuration }) => 
         let interval: NodeJS.Timeout;
         interval = setInterval(() => {
             setCurrentSong(prev => prev === 0 ? 1 : 0)
-            if (!isVolumeOff && isEnable) {
+            if (!isVolumeOff && isPlaying) {
                 playSound();
             }
         }, fillDuration);
         return () => clearInterval(interval);
-    }, [isVolumeOff, fillDuration, isEnable, currentSong]);
+    }, [isVolumeOff, fillDuration, isPlaying, currentSong]);
 
     const toggleSound = () => {
         setIsVolumeOff(prev => !prev);

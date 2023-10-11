@@ -7,17 +7,22 @@ import PlayButton from './features/PlayButton/PlayButton';
 
 export default function App() {
 
-  const [isStart, setIsStart] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlayback = () => {
+    setIsPlaying(previous => !previous);
+  };
 
   return (
     <View style={styles.container}>
-      <VerticalProgressBar isEnable={isStart} fillDuration={5000}></VerticalProgressBar>
-      <AudioPlayer isEnable={isStart} fillDuration={5000}></AudioPlayer>
-      <PlayButton isPlay={isStart} onPress={() => { setIsStart((previous) => !previous) }}></PlayButton>
+      <VerticalProgressBar isPlaying={isPlaying} fillDuration={5000} />
+      <AudioPlayer isPlaying={isPlaying} fillDuration={5000} />
+      <PlayButton isPlaying={isPlaying} onPress={togglePlayback} />
       <StatusBar style="auto" />
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
