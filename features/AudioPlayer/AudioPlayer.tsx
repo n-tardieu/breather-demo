@@ -14,27 +14,34 @@ interface AudioPlayerProps {
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ isEnable, fillDuration }) => {
 
     const [isVolumeOff, setIsVolumeOff] = useState<boolean>(false);
+    const [currentSong, setCurrentSong] = useState<number>(1);
+
+
+    const songs = [
+        require('../../media/song-1.mp3'),
+        require('../../media/song-2.mp3')
+    ];
 
     async function playSound() {
-        if (!isVolumeOff) {
-            const { sound } = await Audio.Sound.createAsync(require('../../media/21764.mp3'));
-            console.log('Playing Sound');
-            await sound.playAsync();
-        }
+        const { sound } = await Audio.Sound.createAsync(songs[currentSong]);
+        console.log(`Playing Sound ${currentSong}`);
+        await sound.playAsync();
     }
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
         interval = setInterval(() => {
-            playSound();
+            setCurrentSong(prev => prev === 0 ? 1 : 0)
+            if (!isVolumeOff && isEnable) {
+                playSound();
+            }
         }, fillDuration);
         return () => clearInterval(interval);
-    }, [isVolumeOff, fillDuration]);
+    }, [isVolumeOff, fillDuration, isEnable, currentSong]);
 
     const toggleSound = () => {
         setIsVolumeOff(prev => !prev);
     }
-
 
     return (
         <TouchableOpacity style={styles.player} onPress={toggleSound}>
