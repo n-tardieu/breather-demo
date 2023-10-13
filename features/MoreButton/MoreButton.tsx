@@ -1,25 +1,25 @@
 import { Text, TouchableOpacity } from 'react-native';
-import styles from './SettingButton.style';
+import styles from './MoreButton.style';
 
 // Icons
 import { Ionicons } from '@expo/vector-icons';
 
-interface SettingButtonProps {
+interface MoreButtonProps {
     isPlaying: boolean
     onPress: () => any
 }
 
-const SettingButton: React.FC<SettingButtonProps> = ({ isPlaying, onPress }) => {
+const MoreButton: React.FC<MoreButtonProps> = ({ isPlaying, onPress }) => {
 
     if (isPlaying)
         return null
 
     return (
         <TouchableOpacity disabled={isPlaying} style={styles.more} onPress={onPress}>
-            <Text>Parametres</Text>
+         <Ionicons name="ellipsis-horizontal-sharp" size={24} color="black" />
         </TouchableOpacity>
     );
 }
 
 
-export default SettingButton
+export default MoreButton

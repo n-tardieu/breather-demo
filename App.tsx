@@ -5,7 +5,7 @@ import VerticalProgressBar from './components/ui/VerticalProgressBar/VerticalPro
 import AudioPlayer from './features/AudioPlayer/AudioPlayer';
 import PlayButton from './features/PlayButton/PlayButton';
 import ResetButton from './features/ResetButton/ResetButton';
-import SettingButton from './features/SettingButton/SettingButton';
+import MoreButton from './features/MoreButton/MoreButton';
 
 export default function App() {
 
@@ -21,7 +21,7 @@ export default function App() {
       <AudioPlayer isPlaying={isPlaying} fillDuration={5000} />
       <PlayButton isPlaying={isPlaying} onPress={togglePlayback} />
       <ResetButton isPlaying={isPlaying} onPress={togglePlayback}></ResetButton>
-      <SettingButton isPlaying={isPlaying} onPress={() => { }}></SettingButton>
+      <MoreButton isPlaying={false} onPress={() => { }}></MoreButton>
       <StatusBar style="auto" />
     </View>
   );
