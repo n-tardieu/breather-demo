@@ -6,33 +6,12 @@ import AudioPlayer from './features/AudioPlayer/AudioPlayer';
 import PlayButton from './features/PlayButton/PlayButton';
 import ResetButton from './features/ResetButton/ResetButton';
 import MoreButton from './features/MoreButton/MoreButton';
+import Router from './router/Router';
 
 export default function App() {
 
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const togglePlayback = () => {
-    setIsPlaying(previous => !previous);
-  };
-
   return (
-    <View style={styles.container}>
-      <VerticalProgressBar isPlaying={isPlaying} fillDuration={5000} />
-      <AudioPlayer isPlaying={isPlaying} fillDuration={5000} />
-      <PlayButton isPlaying={isPlaying} onPress={togglePlayback} />
-      <ResetButton isPlaying={isPlaying} onPress={togglePlayback}></ResetButton>
-      <MoreButton isPlaying={false} onPress={() => { }}></MoreButton>
-      <StatusBar style="auto" />
-    </View>
+    <Router></Router>
   );
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
