@@ -16,7 +16,8 @@ const MoreButton: React.FC<MoreButtonProps> = ({ isPlaying, onPress }) => {
 
     return (
         <TouchableOpacity disabled={isPlaying} style={styles.more} onPress={onPress}>
-         <Ionicons name="ellipsis-horizontal-sharp" size={24} color="black" />
+         {/* <Ionicons name="ellipsis-horizontal-sharp" size={24} color="black" /> */}
+         <Ionicons name="settings-sharp" size={24} color="#555938" />
         </TouchableOpacity>
     );
 }
