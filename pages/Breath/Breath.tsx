@@ -8,6 +8,7 @@ import AudioPlayer from '../../features/AudioPlayer/AudioPlayer';
 import MoreButton from '../../features/MoreButton/MoreButton';
 import PlayButton from '../../features/PlayButton/PlayButton';
 import ResetButton from '../../features/ResetButton/ResetButton';
+import TimeProgressBar from '../../components/ui/TimeProgressBar /TimeProgressBar';
 
 
 const Breath: React.FC<StackHeaderProps> = ({ navigation }) => {
@@ -24,6 +25,7 @@ const Breath: React.FC<StackHeaderProps> = ({ navigation }) => {
             <ResetButton isPlaying={isPlaying} onPress={togglePlayback}></ResetButton>
             <MoreButton isPlaying={false} onPress={() => { navigation.push('Settings') }}></MoreButton>
             <StatusBar style="auto" />
+            <TimeProgressBar isPlaying={isPlaying} fillDuration={120000} ></TimeProgressBar>
         </View>
     );
 }
