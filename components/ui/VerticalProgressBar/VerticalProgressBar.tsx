@@ -5,10 +5,11 @@ import { Animated } from 'react-native';
 
 interface VerticalProgressBarProps {
     isPlaying: boolean;
+    isResetting: boolean;
     fillDuration: number;
 }
 
-const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, fillDuration }) => {
+const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, isResetting, fillDuration }) => {
     const [progress] = useState(new Animated.Value(0));
     const [isInspiration, setIsInspiration] = useState<boolean>(true);
 
@@ -20,6 +21,12 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, fi
         else
             pauseAnimation()
     }, [isPlaying, isInspiration])
+
+    useEffect(() => {
+        progress.setValue(0)
+        setIsInspiration(true)
+    }, [isResetting])
+
 
     const breathLogic = () => {
         if (isInspiration)

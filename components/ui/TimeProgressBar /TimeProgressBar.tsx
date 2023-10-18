@@ -5,10 +5,11 @@ import { Animated } from 'react-native';
 
 interface TimeProgressBarProps {
     isPlaying: boolean;
+    isResetting: boolean;
     fillDuration: number;
 }
 
-const TimeProgressBar: React.FC<TimeProgressBarProps> = ({ isPlaying, fillDuration }) => {
+const TimeProgressBar: React.FC<TimeProgressBarProps> = ({ isPlaying, isResetting, fillDuration }) => {
     const [progress] = useState(new Animated.Value(5));
 
     useEffect(() => {
@@ -17,6 +18,10 @@ const TimeProgressBar: React.FC<TimeProgressBarProps> = ({ isPlaying, fillDurati
         else
             pauseAnimation()
     }, [isPlaying])
+
+    useEffect(() => {
+        progress.setValue(5)
+    }, [isResetting])
 
     const timerLogic = () => {
         Animated.timing(progress, {
