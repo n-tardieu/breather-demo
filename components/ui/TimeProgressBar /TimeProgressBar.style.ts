@@ -8,7 +8,7 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
     position: 'absolute',
     width: 250,
-    bottom: 7,
+    bottom: 24,
   },
   bar: {
     backgroundColor: '#5A6E73',

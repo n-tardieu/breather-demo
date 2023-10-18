@@ -8,7 +8,7 @@ export default StyleSheet.create({
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    bottom: 40,
+    bottom: 60,
     borderRadius: 28,
   }
 });
