@@ -1,14 +1,20 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
+  container : {
+    position: 'absolute',
+    bottom: 16,
+  },
+  timeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  barContainer: {
     backgroundColor: '#F2F2F0',
     borderRadius: 6,
     borderColor: '#555938',
     alignItems: 'flex-start',
-    position: 'absolute',
     width: 250,
-    bottom: 24,
   },
   bar: {
     backgroundColor: '#5A6E73',
