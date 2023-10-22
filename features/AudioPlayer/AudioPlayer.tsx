@@ -7,15 +7,15 @@ import styles from './AudioPlayer.style';
 import { Ionicons } from '@expo/vector-icons';
 
 interface AudioPlayerProps {
-    isPlaying: boolean
+    isPlaying: boolean;
     fillDuration: number;
+    isInspiration: boolean;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying, fillDuration }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying, isInspiration, fillDuration }) => {
 
     const [isVolumeOff, setIsVolumeOff] = useState<boolean>(false);
-    const [currentSong, setCurrentSong] = useState<number>(1);
-
+    const currentSong = isInspiration ? 1 : 0
 
     const songs = [
         require('../../media/song-1.mp3'),
@@ -24,19 +24,13 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying, fillDuration }) =>
 
     async function playSound() {
         const { sound } = await Audio.Sound.createAsync(songs[currentSong]);
-        console.log(`Playing Sound ${currentSong}`);
         await sound.playAsync();
     }
 
     useEffect(() => {
-        let interval: NodeJS.Timeout;
-        interval = setInterval(() => {
-            setCurrentSong(prev => prev === 0 ? 1 : 0)
-            if (!isVolumeOff && isPlaying) {
-                playSound();
-            }
-        }, fillDuration);
-        return () => clearInterval(interval);
+        if (!isVolumeOff && isPlaying) {
+            playSound();
+        }
     }, [isVolumeOff, fillDuration, isPlaying, currentSong]);
 
     const toggleSound = () => {
