@@ -15,17 +15,18 @@ import useBreath from '../../features/hooks/Breath';
 const Breath: React.FC<StackHeaderProps> = ({ navigation }) => {
 
     const fillDuration = 5000
+    const sessionDuration = fillDuration * 6
 
-    const { isPlaying, isResetting, togglePlay, toggleReset } = useBreath()
+    const { currentTime, isPlaying, isResetting, isInspiration, togglePlay, toggleReset } = useBreath(sessionDuration)
     return (
         <View style={styles.container}>
-            <VerticalProgressBar isPlaying={isPlaying} fillDuration={fillDuration} isResetting={isResetting} />
-            <AudioPlayer isPlaying={isPlaying} fillDuration={fillDuration} />
+            <VerticalProgressBar isPlaying={isPlaying} isInspiration={isInspiration} fillDuration={fillDuration} isResetting={isResetting} />
+            <AudioPlayer isPlaying={isPlaying} isInspiration={isInspiration} fillDuration={fillDuration} />
             <PlayButton isPlaying={isPlaying} onPress={() => togglePlay()} />
             <ResetButton isPlaying={isPlaying} onPress={() => toggleReset()}></ResetButton>
-            <MoreButton isPlaying={false} onPress={() => { navigation.push('Settings') }}></MoreButton>
+            <MoreButton isPlaying={isPlaying} onPress={() => { navigation.push('Settings') }}></MoreButton>
             <StatusBar style="auto" />
-            <TimeProgressBar isPlaying={isPlaying} fillDuration={fillDuration * 20} isResetting={isResetting} ></TimeProgressBar>
+            <TimeProgressBar isPlaying={isPlaying} isResetting={isResetting} currentTime={currentTime} totalTime={sessionDuration} ></TimeProgressBar>
         </View>
     );
 }
