@@ -5,14 +5,13 @@ import { Animated } from 'react-native';
 
 interface VerticalProgressBarProps {
     isPlaying: boolean;
+    isInspiration: boolean;
     isResetting: boolean;
     fillDuration: number;
 }
 
-const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, isResetting, fillDuration }) => {
+const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, isResetting, isInspiration, fillDuration }) => {
     const [progress] = useState(new Animated.Value(0));
-    const [isInspiration, setIsInspiration] = useState<boolean>(true);
-
     const [pausedProgress, setPausedProgress] = useState(0);
 
     useEffect(() => {
@@ -24,7 +23,6 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, is
 
     useEffect(() => {
         progress.setValue(0)
-        setIsInspiration(true)
     }, [isResetting])
 
 
@@ -35,21 +33,20 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, is
                 duration: (fillDuration),
                 easing: Easing.inOut(Easing.quad),
                 useNativeDriver: false
-            }).start(() => { setIsInspiration(false) })
+            }).start()
         else
             Animated.timing(progress, {
                 toValue: 0,
                 duration: (fillDuration),
                 easing: Easing.inOut(Easing.quad),
                 useNativeDriver: false
-            }).start(() => { setIsInspiration(true) })
+            }).start()
     }
 
     const pauseAnimation = () => {
         progress.stopAnimation(value => {
             setPausedProgress(value);
         });
-        console.log("progress ", progress);
     };
 
     const containerStyle = {
