@@ -15,13 +15,14 @@ import useBreath from '../../features/hooks/Breath';
 const Breath: React.FC<StackHeaderProps> = ({ navigation }) => {
 
     const fillDuration = 5000
-    const sessionDuration = fillDuration * 6
+    const sessionDuration = fillDuration * 60 // Prod
+    // const sessionDuration = fillDuration * 6 // Dev mode
 
     const { currentTime, isPlaying, isResetting, isInspiration, togglePlay, toggleReset } = useBreath(sessionDuration)
     return (
         <View style={styles.container}>
             <VerticalProgressBar isPlaying={isPlaying} isInspiration={isInspiration} fillDuration={fillDuration} isResetting={isResetting} />
-            <AudioPlayer isPlaying={isPlaying} isInspiration={isInspiration} fillDuration={fillDuration} />
+            <AudioPlayer isPlaying={isPlaying} isInspiration={isInspiration} />
             <PlayButton isPlaying={isPlaying} onPress={() => togglePlay()} />
             <ResetButton isPlaying={isPlaying} onPress={() => toggleReset()}></ResetButton>
             <MoreButton isPlaying={isPlaying} onPress={() => { navigation.push('Settings') }}></MoreButton>

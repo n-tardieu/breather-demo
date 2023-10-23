@@ -2,16 +2,23 @@
 import { useState, useEffect } from 'react';
 
 const useBreath = (sessionDuration = 0) => {
-    const [currentTime, setCurrentTime] = useState(0);
+    const [currentTime, setCurrentTime] = useState(1000);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isResetting, setIsReset] = useState(false);
     const [isInspiration, setIsInspiration] = useState(true);
+
+    useEffect(() => {
+        if (isPlaying)
+            console.log(isInspiration ? 'Inspiration__' : 'Expiration___');
+    }, [isInspiration])
 
 
     useEffect(() => {
         let interval: string | number | NodeJS.Timeout | undefined;
 
         if (isPlaying) {
+            let isFirstIteration = true;
+
             interval = setInterval(() => {
                 setCurrentTime(prevTime => {
                     if (prevTime >= sessionDuration) {
@@ -19,18 +26,24 @@ const useBreath = (sessionDuration = 0) => {
                         clearInterval(interval);
                         return prevTime;
                     }
+
+                    if (prevTime !== 0 && prevTime % 5000 === 0 && !isFirstIteration) {
+                        setIsInspiration(prevInspiration => !prevInspiration);
+                    }
+
+                    if (isFirstIteration) {
+                        isFirstIteration = false;
+                    }
+
                     return prevTime + 1000;
                 });
-                if (currentTime % 5000 === 0) { // Toutes les 5 secondes
-                    setIsInspiration(prevInspiration => !prevInspiration);
-                }
-            }, 1000); // Chaque seconde
+            }, 1000);
         } else {
             clearInterval(interval);
         }
 
         return () => clearInterval(interval);
-    }, [isPlaying, currentTime]);
+    }, [isPlaying, sessionDuration]);
 
     const togglePlay = () => {
         setIsPlaying(prev => !prev);
@@ -38,7 +51,8 @@ const useBreath = (sessionDuration = 0) => {
 
     const toggleReset = () => {
         setIsReset(prev => !prev)
-        setCurrentTime(0)
+        setIsInspiration(true)
+        setCurrentTime(1000)
     }
 
     return {
