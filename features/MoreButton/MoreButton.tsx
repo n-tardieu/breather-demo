@@ -11,13 +11,12 @@ interface MoreButtonProps {
 
 const MoreButton: React.FC<MoreButtonProps> = ({ isPlaying, onPress }) => {
 
-    if (isPlaying)
-        return null
-
     return (
         <TouchableOpacity disabled={isPlaying} style={styles.more} onPress={onPress}>
-         {/* <Ionicons name="ellipsis-horizontal-sharp" size={24} color="black" /> */}
-         <Ionicons name="settings-sharp" size={24} color="#555938" />
+            {!isPlaying ?
+                <Ionicons name="settings-sharp" size={24} color="#555938" /> :
+                <Ionicons name="settings-sharp" size={24} color="#cccdc3" />
+            }
         </TouchableOpacity>
     );
 }
