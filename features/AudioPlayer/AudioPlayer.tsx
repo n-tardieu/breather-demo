@@ -8,11 +8,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 interface AudioPlayerProps {
     isPlaying: boolean;
-    fillDuration: number;
     isInspiration: boolean;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying, isInspiration, fillDuration }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying, isInspiration }) => {
 
     const [isVolumeOff, setIsVolumeOff] = useState<boolean>(false);
     const currentSong = isInspiration ? 1 : 0
@@ -31,7 +30,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying, isInspiration, fil
         if (!isVolumeOff && isPlaying) {
             playSound();
         }
-    }, [isVolumeOff, fillDuration, isPlaying, currentSong]);
+    }, [isVolumeOff, isPlaying, isInspiration]);
 
     const toggleSound = () => {
         setIsVolumeOff(prev => !prev);
