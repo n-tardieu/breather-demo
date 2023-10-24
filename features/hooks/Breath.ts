@@ -8,12 +8,6 @@ const useBreath = (sessionDuration = 0) => {
     const [isInspiration, setIsInspiration] = useState(true);
 
     useEffect(() => {
-        if (isPlaying)
-            console.log(isInspiration ? 'Inspiration__' : 'Expiration___');
-    }, [isInspiration])
-
-
-    useEffect(() => {
         let interval: string | number | NodeJS.Timeout | undefined;
 
         if (isPlaying) {
