@@ -12,40 +12,67 @@ interface VerticalProgressBarProps {
 
 const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, isResetting, isInspiration, fillDuration }) => {
     const [progress] = useState(new Animated.Value(0));
-    const [pausedProgress, setPausedProgress] = useState(0);
+    const [remainingDuration, setRemainingDuration] = useState(0);
+    const [wasRecentlyPaused, setWasRecentlyPaused] = useState(false);
+
+
+
+    // TODO: to optimize
+    const getCustomEasing = (duration: number, fillDuration: number) => {
+        const factor = duration / fillDuration;
+
+        const x1 = 0.42 - 0.1 * factor;
+        const y1 = 0;
+        const x2 = 0.58 + 0.1 * factor;
+        const y2 = 1;
+
+        return Easing.bezier(x1, y1, x2, y2);
+    }
+
+
 
     useEffect(() => {
         if (isPlaying)
-            breathLogic()
+            startAnimation()
         else
             pauseAnimation()
     }, [isPlaying, isInspiration])
 
     useEffect(() => {
         progress.setValue(0)
+        setWasRecentlyPaused(false)
     }, [isResetting])
 
 
-    const breathLogic = () => {
+    const startAnimation = () => {
+        const duration = wasRecentlyPaused ? remainingDuration : fillDuration;
+        // const customEasing = getCustomEasing(duration, fillDuration);
+
         if (isInspiration)
             Animated.timing(progress, {
                 toValue: 1,
-                duration: (fillDuration),
+                duration: (duration),
                 easing: Easing.inOut(Easing.quad),
+                // easing: wasRecentlyPaused ? customEasing : Easing.inOut(Easing.quad),
                 useNativeDriver: false
             }).start()
         else
             Animated.timing(progress, {
                 toValue: 0,
-                duration: (fillDuration),
+                duration: (duration),
                 easing: Easing.inOut(Easing.quad),
                 useNativeDriver: false
             }).start()
+        if (wasRecentlyPaused) {
+            setWasRecentlyPaused(false);
+        }
     }
 
     const pauseAnimation = () => {
         progress.stopAnimation(value => {
-            setPausedProgress(value);
+            let remaining = isInspiration ? fillDuration * (1 - value) : fillDuration * value;
+            setRemainingDuration(remaining);
+            setWasRecentlyPaused(true);
         });
     };
 
