@@ -25,7 +25,7 @@ const Breath: React.FC<StackHeaderProps> = ({ navigation }) => {
             <AudioPlayer isPlaying={isPlaying} isInspiration={isInspiration} />
             <PlayButton isPlaying={isPlaying} onPress={() => togglePlay()} />
             <ResetButton isPlaying={isPlaying} onPress={() => toggleReset()}></ResetButton>
-            {/* <MoreButton isPlaying={isPlaying} onPress={() => { navigation.push('Settings') }}></MoreButton> */}
+            <MoreButton isPlaying={isPlaying} onPress={() => { navigation.push('Settings') }}></MoreButton>
             <StatusBar style="auto" />
             <TimeProgressBar isPlaying={isPlaying} isResetting={isResetting} currentTime={currentTime} totalTime={sessionDuration} ></TimeProgressBar>
         </View>
