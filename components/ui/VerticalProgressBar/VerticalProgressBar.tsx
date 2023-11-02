@@ -11,7 +11,7 @@ interface VerticalProgressBarProps {
 }
 
 const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, isResetting, isInspiration, fillDuration }) => {
-    const [progress] = useState(new Animated.Value(0));
+    const [progress] = useState(new Animated.Value(1));
     const [remainingDuration, setRemainingDuration] = useState(0);
     const [wasRecentlyPaused, setWasRecentlyPaused] = useState(false);
 
@@ -39,7 +39,7 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, is
     }, [isPlaying, isInspiration])
 
     useEffect(() => {
-        progress.setValue(0)
+        progress.setValue(1)
         setWasRecentlyPaused(false)
     }, [isResetting])
 
@@ -50,7 +50,7 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, is
 
         if (isInspiration)
             Animated.timing(progress, {
-                toValue: 1,
+                toValue: 0,
                 duration: (duration),
                 easing: Easing.inOut(Easing.quad),
                 // easing: wasRecentlyPaused ? customEasing : Easing.inOut(Easing.quad),
@@ -58,7 +58,7 @@ const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({ isPlaying, is
             }).start()
         else
             Animated.timing(progress, {
-                toValue: 0,
+                toValue: 1,
                 duration: (duration),
                 easing: Easing.inOut(Easing.quad),
                 useNativeDriver: false
