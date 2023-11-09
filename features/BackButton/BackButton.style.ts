@@ -1,14 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  more : {
-    position: 'absolute',
-    width: 76,
-    height: 56,
+  more: {
     alignItems: 'center',
     justifyContent: 'center',
-    left: 10,
-    top: 40,
+    width: 56,
+    height: 56,
     borderRadius: 28,
   }
 });
