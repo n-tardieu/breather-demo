@@ -11,7 +11,6 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     section: {
-        marginLeft: 20,
         marginBottom: 20,
     },
     title: {
