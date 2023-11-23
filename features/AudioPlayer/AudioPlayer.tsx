@@ -22,9 +22,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying, isInspiration }) =
     ];
 
     async function playSound() {
-        const { sound } = await Audio.Sound.createAsync(songs[currentSong]);
+        const { sound, status } = await Audio.Sound.createAsync(songs[currentSong]);
+    
+        const onPlaybackStatusUpdate = (status: any) => {
+            if (status.didJustFinish) {
+                sound.unloadAsync();
+                sound.setOnPlaybackStatusUpdate(null); // Nettoyer le gestionnaire d'événements après la fin de la lecture
+            }
+        };
+    
+        sound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
         await sound.playAsync();
     }
+    
 
     useEffect(() => {
         if (!isVolumeOff && isPlaying) {
