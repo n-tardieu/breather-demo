@@ -13,9 +13,10 @@ const Settings: React.FC<StackHeaderProps> = ({ navigation }) => {
         <Text>Réglages</Text>
       </View>
       <View style={styles.section}>
-        <CustomButton fieldName='Durée total' value='5min' onClick={() => { }} />
-        <CustomButton fieldName="Durée d'inspiration" value='5min' onClick={() => { }} />
-        <CustomButton fieldName="Durée d'expiration" value='5min' onClick={() => { }} />
+        <CustomButton fieldName='Durée total' value='5' valueUnit='min' onClick={() => { }} />
+        <CustomButton fieldName="Durée d'inspiration" value='5' valueUnit='min' onClick={() => { }} />
+        <CustomButton fieldName="Durée d'expiration" value='5' valueUnit='min' onClick={() => { }} />
+        <CustomButton fieldName="Is a toggle" value='true' description='Toggle description' valueUnit='min' haveToggle={true} onClick={() => { }} />
       </View>
 
       <CustomButton fieldName="Version" value='1.0.0_220324' onClick={() => { }} />
